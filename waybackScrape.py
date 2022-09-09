@@ -33,9 +33,14 @@ try:
         for line in hosts_list:
             r_line = line.replace("\n","")
             wayback_url = f"https://web.archive.org/cdx/search?url={r_line}/&matchType=host&collapse=urlkey&output=text&fl=original&limit=100&from={auto_date}"
-            req = requests.get(wayback_url)
-            with open(f"list-{auto_date}-raw.txt","a") as file:
-                file.write(req.text)
+            print(wayback_url[39:-80])
+            try:
+                req = requests.get(wayback_url)
+                with open(f"list-{auto_date}-raw.txt","a") as file:
+                    file.write(req.text)
+            except Exception as c:
+                print(c)
+                continue
         hosts_list.close()
 
     def custom_list():
