@@ -51,7 +51,7 @@ try:
             print(wayback_url[39:-80])
             try:
                 req = requests.get(wayback_url)
-                with open(f"{name_file}-{auto_date}-raw","a") as file:
+                with open(f"{name_file}-{auto_date}-raw.txt","a") as file:
                     file.write(req.text)
             except Exception as c:
                 print(c)
