@@ -30,15 +30,15 @@ try:
             file.write(req.text)
 
     def list_hosts():
-        print("1")
+        # print("1")
         hosts_list = open("list-hosts.txt","r")
         for line in hosts_list:
             r_line = line.replace("\n","")
-            wayback_url = f"https://web.archive.org/cdx/search?url={r_line}/&matchType=host&collapse=urlkey&output=text&fl=original&limit=100&from={auto_date}"
+            wayback_url = f"https://web.archive.org/cdx/search?url={r_line}/&matchType=host&collapse=urlkey&output=text&fl=original&limit=10000&from={auto_date}"
             print(wayback_url[39:-80])
             try:
                 req = requests.get(wayback_url)
-                with open(f"list-{auto_date}-raw.txt","a") as file:
+                with open(f"list-{auto_date}-{sys.argv[2]}-raw.txt","a") as file:
                     file.write(req.text)
             except Exception as c:
                 print(c)
@@ -71,8 +71,8 @@ try:
         list_domain = open(sys.argv[2],"r")
         for line in list_domain:
             r_line = line.replace("\n","")
-            wayback_url = f"https://web.archive.org/cdx/search?url={r_line}/&matchType=domain&collapse=urlkey&output=text&fl=original&limit=100&from={auto_date}"
-            print(wayback_url[39:-82])
+            wayback_url = f"https://web.archive.org/cdx/search?url={r_line}/&matchType=domain&collapse=urlkey&output=text&fl=original&filter=urlkey:.*ico&limit=1000000&from={auto_date}"
+            print(wayback_url[20:-1])
             try:
                 req = requests.get(wayback_url)
                 with open(f"{name_file}-{auto_date}-raw.txt","a") as file:
